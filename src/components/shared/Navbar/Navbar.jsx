@@ -14,7 +14,7 @@ const Navbar = () => {
     </div>
     return (
 
-      <div className="bg-base-300">
+      <div className="border-b-[1px] shadow-sm">
         <Container>
         <div className="navbar ">
         <div className="navbar-start">
