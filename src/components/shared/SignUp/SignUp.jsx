@@ -4,13 +4,58 @@ import { useForm } from "react-hook-form";
 import Lottie from "lottie-react";
 import SignUpAnimation from "./signUp.json";
 import Container from "../Container";
+import useAuth from "../../../hooks/UseAuth";
+import { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { toast } from "react-hot-toast";
+import { saveUserToDb } from "../../../api/Auth";
 const SignUp = () => {
+  const [userError, setUserError] = useState("");
+  const {
+    createUserWithEmail,
+    loader,
+    setLoader,
+    updateUserProfile,
+  } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    setUserError("");
+    if (data.password !== data.confirm) {
+      return setUserError("Password did'nt match");
+    }
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_API_KEY
+    }`;
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    setLoader(true);
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData.data.display_url;
+        createUserWithEmail(data.email, data.password)
+          .then((result) => {
+            updateUserProfile(data.name, imageUrl).then(() => {
+                toast.success("You have sign up successfully");
+                saveUserToDb(result.user)
+            }).catch(error => {
+                toast.error(error.message);
+                setLoader(false);
+            })
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            setLoader(false);
+          });
+      });
+  };
 
   return (
     <Container>
@@ -52,7 +97,7 @@ const SignUp = () => {
                       Select Image:
                     </label>
                     <input
-                      {...register("file", { required: true })}
+                      {...register("image", { required: true })}
                       type="file"
                       id="image"
                       name="image"
@@ -88,10 +133,10 @@ const SignUp = () => {
                     <input
                       {...register("password", {
                         required: true,
-                        minLength: 6,
-                        maxLength: 16,
-                        pattern:
-                          /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
+                        // minLength: 6,
+                        // maxLength: 16,
+                        // pattern:
+                        //   /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
                       })}
                       type="password"
                       name="password"
@@ -99,7 +144,7 @@ const SignUp = () => {
                       placeholder="*******"
                       className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                     />
-                    {errors.password && (
+                    {errors.password?.type === "required" && (
                       <p className="text-red-600">Password is required !!</p>
                     )}
                     {errors.password?.type === "minLength" && (
@@ -128,14 +173,15 @@ const SignUp = () => {
                     <input
                       {...register("confirm", { required: true })}
                       type="password"
-                      name="password"
+                      name="confirm"
                       id="confirm"
                       placeholder="*******"
                       className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                     />
-                    {errors.confirm && (
+                    {errors.confirm?.type === "required" && (
                       <p className="text-red-600">Password is required !!</p>
                     )}
+                    <p className="text-red-600">{userError}</p>
                   </div>
                 </div>
 
@@ -144,7 +190,11 @@ const SignUp = () => {
                     type="submit"
                     className="bg-rose-500 w-full rounded-md py-3 text-white"
                   >
-                    Continue
+                    {loader ? (
+                      <CgSpinnerTwo className="mx-auto animate-spin text-2xl" />
+                    ) : (
+                      "Continue"
+                    )}
                   </button>
                 </div>
               </form>

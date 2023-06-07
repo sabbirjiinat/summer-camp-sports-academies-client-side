@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import Container from "../Container";
 import navLogo from '../../../assets/navLogo.png'
+import useAuth from "../../../hooks/UseAuth";
 
 
 const Navbar = () => {
+  const {user} = useAuth()
     const navItems = <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-4">
              <NavLink to='/' className='text-base'>Home</NavLink>
              <NavLink to='/instructors' className='text-base'>Instructors</NavLink>
@@ -36,11 +38,11 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+       {user &&  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <img title={user?.displayName} src={user?.photoURL} alt="profile" />
         </div>
-      </label>
+      </label>}
         </div>
       </div>
       </Container>
