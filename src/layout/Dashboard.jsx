@@ -1,0 +1,80 @@
+import { Link, NavLink, Outlet } from "react-router-dom";
+import Container from "../components/shared/Container";
+import { RiHomeGearFill } from "react-icons/ri";
+import { FcSportsMode } from 'react-icons/fc'
+import {FaUsersCog} from 'react-icons/fa'
+import useAuth from "../hooks/UseAuth";
+const Dashboard = () => {
+    const {user} = useAuth()
+  const isAdmin = true;
+  return (
+    <Container>
+      <div className="drawer lg:drawer-open">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content flex flex-col items-center justify-center">
+          <Outlet />
+          <label
+            htmlFor="my-drawer-2"
+            className="btn btn-primary drawer-button lg:hidden flex justify-end"
+          >
+            Open drawer
+          </label>
+        </div>
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-[250px] h-full bg-base-200 text-base-content">
+            {isAdmin && (
+                          <>
+                              <div className="flex flex-col items-center space-y-2">
+                                  <Link to='/'>
+                                  <img title={user?.displayName} className="rounded-full w-24 h-24 object-cover" src={user?.photoURL} alt="" /> 
+                                  </Link>
+                                  <h4 className="font-medium text-gray-800 hover:underline">{ user?.email}</h4>
+                                  <h4 className="font-medium text-gray-800 hover:underline">{ user?.displayName}</h4>
+                              </div>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <RiHomeGearFill className="h-5 w-5" />
+
+                  <span className="mx-4 font-medium">Home</span>
+                </NavLink>
+                <NavLink
+                  to="/manage-classes"
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <FcSportsMode className="h-5 w-5" />
+
+                  <span className="mx-4 font-medium">Manage Classes</span>
+                </NavLink>
+                <NavLink
+                  to="/manage-users"
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <FaUsersCog className="h-5 w-5" />
+
+                  <span className="mx-4 font-medium">Manage Users</span>
+                </NavLink>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+export default Dashboard;

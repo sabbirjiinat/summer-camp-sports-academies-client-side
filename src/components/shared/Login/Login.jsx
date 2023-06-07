@@ -1,14 +1,44 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../../hooks/UseAuth";
+import { toast } from "react-hot-toast";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const Login = () => {
+  const { loginWithEmail, loginWithGoogle, loader, setLoader } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    setLoader(true)
+    loginWithEmail(data.email, data.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        toast.success("You have login successfully");
+        setLoader(false)
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+        setLoader(false)
+      });
+  };
+
+  const googleLogin = () => {
+    loginWithGoogle().then(result => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    }).catch(error => {
+      console.log(error);
+      toast.error(error.message)
+    })
+  }
   return (
     <div>
       <div className="flex justify-center items-center min-h-screen">
@@ -40,6 +70,9 @@ const Login = () => {
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                   data-temp-mail-org="0"
                 />
+                {errors.email && (
+                  <p className="text-red-600">Email is required !!</p>
+                )}
               </div>
               <div>
                 <div className="flex justify-between">
@@ -56,6 +89,9 @@ const Login = () => {
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
+                {errors.password && (
+                  <p className="text-red-600">Password is required !!</p>
+                )}
               </div>
             </div>
 
@@ -64,7 +100,11 @@ const Login = () => {
                 type="submit"
                 className="bg-rose-500 w-full rounded-md py-3 text-white"
               >
-                Continue
+                 {loader ? (
+                      <CgSpinnerTwo className="mx-auto animate-spin text-2xl" />
+                    ) : (
+                      "Continue"
+                    )}
               </button>
             </div>
           </form>
@@ -75,7 +115,7 @@ const Login = () => {
             </p>
             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
           </div>
-          <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+          <div onClick={googleLogin} className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
             <FcGoogle size={32} />
 
             <p>Continue with Google</p>
