@@ -10,7 +10,7 @@ const Navbar = () => {
              <NavLink to='/' className='text-base'>Home</NavLink>
              <NavLink to='/instructors' className='text-base'>Instructors</NavLink>
              <NavLink to='/classes' className='text-base'>Classes</NavLink>
-             <NavLink to='/dashboard' className='text-base'>Dashboard</NavLink>
+             <NavLink to='/dashboard/' className='text-base'>Dashboard</NavLink>
       {user ? <button onClick={() => logOut()} className='text-base'>Logout</button> :
             <NavLink to='/login' className='text-base'>Login</NavLink>
            }
