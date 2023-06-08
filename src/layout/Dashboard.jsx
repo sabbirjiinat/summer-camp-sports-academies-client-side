@@ -1,6 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Container from "../components/shared/Container";
-import { RiHomeGearFill } from "react-icons/ri";
 import { FcSportsMode } from "react-icons/fc";
 import { FaUsersCog } from "react-icons/fa";
 import { MdSportsEsports,MdOutlineSports } from 'react-icons/md'
@@ -25,7 +24,7 @@ const Dashboard = () => {
             Open drawer
           </label>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side fixed z-10">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-[250px] h-full bg-base-200 text-base-content">
             {isAdmin && (
@@ -46,20 +45,9 @@ const Dashboard = () => {
                     {user?.displayName}
                   </h4>
                 </div>
+                
                 <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                    }`
-                  }
-                >
-                  <RiHomeGearFill className="h-5 w-5" />
-
-                  <span className="mx-4 font-medium">Home</span>
-                </NavLink>
-                <NavLink
-                  to="/manage-classes"
+                  to="/dashboard/manage-classes"
                   className={({ isActive }) =>
                     `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
                       isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"

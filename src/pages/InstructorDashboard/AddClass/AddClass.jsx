@@ -39,7 +39,7 @@ const AddClass = () => {
           image: imageUrl,
           status:'pending'
         };
-        axiosSecure.post("/add-class", newSportClass).then((data) => {
+        axiosSecure.post("/classes", newSportClass).then((data) => {
           if (data.data.insertedId) {
             setLoader(false)
             Swal.fire({
