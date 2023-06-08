@@ -6,20 +6,20 @@ import useAuth from "../../../hooks/UseAuth";
 
 const Navbar = () => {
   const {user,logOut} = useAuth()
-    const navItems = <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-4 text-base font-semibold">
+    const navItems = <div className="flex flex-col md:flex-row md:items-center  md:gap-4 text-base font-semibold">
              <NavLink to='/' className='text-base'>Home</NavLink>
              <NavLink to='/instructors' className='text-base'>Instructors</NavLink>
              <NavLink to='/classes' className='text-base'>Classes</NavLink>
              <NavLink to='/dashboard' className='text-base'>Dashboard</NavLink>
       {user ? <button onClick={() => logOut()} className='text-base'>Logout</button> :
-            <NavLink to='/login' className='text-base'>login</NavLink>
+            <NavLink to='/login' className='text-base'>Login</NavLink>
            }
            
               
     </div>
     return (
 
-      <div className="border-b-[1px] shadow-sm bg-neutral-100">
+      <div className="border-b-[1px] shadow-sm bg-neutral-100 fixed w-full z-10">
         <Container>
         <div className="navbar ">
         <div className="navbar-start">

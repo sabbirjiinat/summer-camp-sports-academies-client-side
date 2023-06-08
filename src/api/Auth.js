@@ -1,3 +1,5 @@
+
+//save user in mongodb
 export const saveUserToDb = (user) => {
     const currentUser = {
         email: user?.email
@@ -13,3 +15,8 @@ export const saveUserToDb = (user) => {
         console.log(data);
     })
 }
+
+
+    
+    
+ 

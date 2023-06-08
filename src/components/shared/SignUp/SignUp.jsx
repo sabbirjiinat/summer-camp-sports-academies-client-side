@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Lottie from "lottie-react";
 import SignUpAnimation from "./signUp.json";
@@ -11,6 +11,9 @@ import { toast } from "react-hot-toast";
 import { saveUserToDb } from "../../../api/Auth";
 const SignUp = () => {
   const [userError, setUserError] = useState("");
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location?.state?.from?.pathname || '/'
   const {
     createUserWithEmail,
     loader,
@@ -45,7 +48,8 @@ const SignUp = () => {
           .then((result) => {
             updateUserProfile(data.name, imageUrl).then(() => {
                 toast.success("You have sign up successfully");
-                saveUserToDb(result.user)
+              saveUserToDb(result.user)
+              navigate(from,{replace:true})
             }).catch(error => {
                 toast.error(error.message);
                 setLoader(false);
@@ -60,7 +64,14 @@ const SignUp = () => {
 
 
   const googleLogin = () => {
-    loginWithGoogle 
+    loginWithGoogle().then(result => {
+      const loggedUser = result.user;
+      saveUserToDb(loggedUser)
+      console.log(loggedUser);
+    }).catch(error => {
+      console.log(error);
+      toast.error(error.message)
+    })
   }
 
   return (

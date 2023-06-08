@@ -18,7 +18,7 @@ const Banner = () => {
 
   return (
     <Container>
-          <div className="pt-5 pb-10">
+          <div className="">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}

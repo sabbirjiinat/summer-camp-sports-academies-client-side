@@ -1,12 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/UseAuth";
 import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { saveUserToDb } from "../../../api/Auth";
 
 const Login = () => {
   const { loginWithEmail, loginWithGoogle, loader, setLoader } = useAuth();
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location?.state?.from?.pathname || '/'
 
   const {
     register,
@@ -22,6 +26,7 @@ const Login = () => {
         console.log(loggedUser);
         toast.success("You have login successfully");
         setLoader(false)
+        navigate(from,{replace:true})
       })
       .catch((error) => {
         console.log(error);
@@ -31,11 +36,15 @@ const Login = () => {
   };
 
   const googleLogin = () => {
+    setLoader(true)
     loginWithGoogle().then(result => {
       const loggedUser = result.user;
+      saveUserToDb(loggedUser)
+      setLoader(false)
       console.log(loggedUser);
     }).catch(error => {
       console.log(error);
+      setLoader(false)
       toast.error(error.message)
     })
   }
@@ -65,7 +74,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  required
+               
                   placeholder="Enter Your Email Here"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                   data-temp-mail-org="0"
@@ -85,7 +94,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
-                  required
+               
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
