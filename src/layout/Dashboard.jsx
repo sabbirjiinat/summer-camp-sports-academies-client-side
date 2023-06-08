@@ -4,9 +4,11 @@ import { RiHomeGearFill } from "react-icons/ri";
 import { FcSportsMode } from 'react-icons/fc'
 import {FaUsersCog} from 'react-icons/fa'
 import useAuth from "../hooks/UseAuth";
+import useAdmin from "../hooks/UseAdmin";
 const Dashboard = () => {
     const {user} = useAuth()
-  const isAdmin = true;
+  const [isAdmin] = useAdmin()
+  console.log(isAdmin);
   return (
     <Container>
       <div className="drawer lg:drawer-open">

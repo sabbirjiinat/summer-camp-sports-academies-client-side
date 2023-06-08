@@ -6,6 +6,7 @@ import SignUp from "../components/shared/SignUp/SignUp";
 import Dashboard from "../layout/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import ManageUser from "../pages/AdminDashboard/ManageUser/ManageUser";
+import AdminRoute from "./AdminRoute";
 
 
 const router = createBrowserRouter([
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'manage-users',
-                element:<ManageUser/>
+                element:<AdminRoute><ManageUser/></AdminRoute>
             }
         ]
     }
