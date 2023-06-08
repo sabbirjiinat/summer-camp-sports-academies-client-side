@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         localStorage.removeItem("access-token");
+        setLoader(false)
       }
     });
     return () => {

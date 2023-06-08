@@ -1,37 +1,26 @@
-const UsersTable = ({ user,index }) => {
-    console.log(user);
+const UsersTable = ({ user, index,makeUserAdmin,makeUserInstructor }) => {
+    const { email, photo, name, role } = user || {};
     
-    return (
-        <tr>
-        <th>
-          <label>
-           {index+1}
-          </label>
-        </th>
-        <td>
-          <div className="flex items-center space-x-3">
-            <div className="avatar">
-              <div className="mask mask-squircle w-12 h-12">
-                <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div className="font-bold">Hart Hagerty</div>
-              <div className="text-sm opacity-50">United States</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br/>
-          <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-        </td>
-        <td>Purple</td>
-        <th>
-          <button className="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-    );
+  return (
+    <tr>
+      <td className="font-medium">
+        <label>{index + 1}</label>
+      </td>
+      <td>
+        <div className="w-10 h-10">
+          <img className="rounded-full object-cover" src={photo} alt="Profile" />
+        </div>
+      </td>
+      
+          <td className="font-medium">{email}</td>
+          
+          <td><button disabled={role === 'admin' || role === 'instructor'} onClick={() => makeUserAdmin(email, name)} className="bg-green-200 rounded-full px-1 font-medium disabled:cursor-not-allowed disabled:bg-gray-600">Make Admin</button></td>
+          
+          <td> <button disabled={role === 'admin' || role === 'instructor'} onClick={() => makeUserInstructor(email,name)} className="bg-rose-200 rounded-full px-1 font-medium disabled:cursor-not-allowed disabled:bg-gray-600">Make Instructor</button></td>
+          
+          <td className="font-medium">{role && role === 'admin' && 'Admin' || role === 'instructor' && 'Instructor' || 'Student'}</td>
+    </tr>
+  );
 };
 
 export default UsersTable;

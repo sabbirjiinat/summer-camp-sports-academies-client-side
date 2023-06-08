@@ -1,8 +1,11 @@
 
+
 //save user in mongodb
 export const saveUserToDb = (user) => {
     const currentUser = {
-        email: user?.email
+        email: user?.email,
+        photo: user?.photoURL,
+        name:user?.displayName
     }
     fetch(`http://localhost:5000/users/${user?.email}`, {
         method: 'PUT',
@@ -15,6 +18,10 @@ export const saveUserToDb = (user) => {
         console.log(data);
     })
 }
+
+
+
+
 
 
     

@@ -1,16 +1,52 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 import UsersTable from "./UsersTable";
+import { toast } from "react-hot-toast";
 
 const ManageUser = () => {
   const [axiosSecure] = useAxiosSecure();
-  const { data: users = [] } = useQuery({
+  const { data: users = [],refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`);
       return res.data;
     },
   });
+    
+    const makeUserAdmin = (email,name) => {
+        fetch(`http://localhost:5000/users/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({role:'admin'})
+        }).then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    refetch()
+                toast.success(`${name} is now admin`)
+            }
+        })
+        
+    }
+    const makeUserInstructor = (email,name) => {
+        fetch(`http://localhost:5000/users/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({role:'instructor'})
+        }).then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    refetch()
+                toast.success(`${name} is now instructor`)
+            }
+        })
+        
+    }
+
+
 
   return (
     <div className="overflow-x-auto">
@@ -21,10 +57,12 @@ const ManageUser = () => {
             <th>
               #
             </th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
+            <th>Photo</th>
+            <th>Email</th>
+            <th>Make Admin</th>
+            <th>Make Instructor</th>
+            <th>Role</th>
+          
           </tr>
         </thead>
         <tbody>
@@ -33,6 +71,8 @@ const ManageUser = () => {
                   key={user._id}
                   user={user}
                   index={index}
+                  makeUserAdmin={makeUserAdmin}
+                  makeUserInstructor={makeUserInstructor}
 
               ></UsersTable>
           ))}
