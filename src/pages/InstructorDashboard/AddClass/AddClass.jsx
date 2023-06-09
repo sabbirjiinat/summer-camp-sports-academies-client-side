@@ -13,6 +13,7 @@ const AddClass = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -41,6 +42,7 @@ const AddClass = () => {
         };
         axiosSecure.post("/classes", newSportClass).then((data) => {
           if (data.data.insertedId) {
+            reset()
             setLoader(false)
             Swal.fire({
               position: "top-end",

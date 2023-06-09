@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 import MyClassTable from "./MyClassTable";
 import { useState } from "react";
 import Loader from "../../../components/shared/Loader";
+import { Helmet } from "react-helmet-async";
 
 const MyClasses = () => {
   const [loading,setLoading] = useState(false)
@@ -26,6 +27,9 @@ const MyClasses = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Summer Camp Sports - Add Class </title>
+      </Helmet>
       {classes && Array.isArray(classes) && classes.length > 0 ? (
         <div className="overflow-hidden">
           <table className="table table-xs">
