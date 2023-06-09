@@ -18,3 +18,4 @@ const useManageClasses = () => {
 };
 
 export default useManageClasses;
+

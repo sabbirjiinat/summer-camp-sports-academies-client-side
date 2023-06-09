@@ -34,8 +34,8 @@ const AddClass = () => {
           className,
           instructorName,
           email,
-          availableSeat,
-          price,
+          availableSeat : parseFloat(availableSeat),
+          price: parseFloat(price),
           image: imageUrl,
           status:'pending'
         };
@@ -66,7 +66,7 @@ const AddClass = () => {
             </label>
             <input
               {...register("className", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border  border-rose-400 focus:outline-rose-500  rounded-md "
+              className="w-full px-4 py-2 text-gray-800 border  border-gray-300 focus:outline-rose-500  rounded-md "
               id="name"
               type="text"
               placeholder="Class Name"
@@ -83,7 +83,7 @@ const AddClass = () => {
             <input
             defaultValue={user?.displayName}
               {...register("instructorName", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border border-rose-400 focus:outline-rose-500   rounded-md"
+              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500   rounded-md"
               id="name"
               type="text"
               placeholder="Instructor Name"
@@ -100,7 +100,7 @@ const AddClass = () => {
             <input
             defaultValue={user?.email}
               {...register("email", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border border-rose-400 focus:outline-rose-500  rounded-md"
+              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500  rounded-md"
               id="email"
               type="email"
               placeholder="Instructor Email"
@@ -128,7 +128,7 @@ const AddClass = () => {
             </label>
             <input
               {...register("availableSeat", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border border-dotted border-rose-400 focus:outline-rose-500   rounded-md"
+              className="w-full px-4 py-2 text-gray-800 border border-dotted border-gray-300 focus:outline-rose-500   rounded-md"
               id="availableSeat"
               type="number"
               placeholder="availableSeat"
@@ -143,7 +143,7 @@ const AddClass = () => {
             </label>
             <input
               {...register("price", { required: true })}
-              className="w-full text px-4 py-2 text-gray-800 border border-dotted border-rose-400 focus:outline-rose-500   rounded-md"
+              className="w-full text px-4 py-2 text-gray-800 border border-dotted border-gray-300 focus:outline-rose-500   rounded-md"
               id="price"
               type="number"
               placeholder="Price"

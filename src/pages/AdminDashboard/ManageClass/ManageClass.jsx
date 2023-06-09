@@ -4,7 +4,8 @@ import Loader from "../../../components/shared/Loader";
 import useManageClasses from "../../../hooks/UseManageClasses";
 import ClassesTable from "./ClassesTable";
 const ManageClass = () => {
-    const [classes,refetch,loading] = useManageClasses();
+  const [classes, refetch, loading] = useManageClasses();
+
     
     if (loading) {
       return <Loader/>
@@ -62,7 +63,7 @@ const ManageClass = () => {
                 <ClassesTable
                   key={singleClass._id}
                       singleClass={singleClass}
-                      updateStatusOfClass={updateStatusOfClassApprove}
+                      updateStatusOfClassApprove={updateStatusOfClassApprove}
                       updateStatusOfClassDeny={updateStatusOfClassDeny}
                 ></ClassesTable>
               ))}
