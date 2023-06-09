@@ -13,6 +13,7 @@ import MyClasses from "../pages/InstructorDashboard/MyClasses/MyClasses";
 import InstructorRoute from '../routes/InstructorRoute'
 import Instructors from "../pages/AdminDashboard/Instructors/Instructors";
 import ErrorPage from "../components/ErrorPage";
+import Classes from "../pages/Classes/Classes";
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: 'instructors',
                 element:<Instructors/>
+            },
+            {
+                path: 'classes',
+                element:<Classes/>
             },
             {
                 path: '/login',

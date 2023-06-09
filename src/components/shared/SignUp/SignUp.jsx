@@ -9,17 +9,19 @@ import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import { saveUserToDb } from "../../../api/Auth";
+import UsePasswordToggle from "../../../hooks/UsePasswordToggle";
 const SignUp = () => {
   const [userError, setUserError] = useState("");
-  const location = useLocation()
-  const navigate = useNavigate()
-  const from = location?.state?.from?.pathname || '/'
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
+  const [inputType, Icon] = UsePasswordToggle();
   const {
     createUserWithEmail,
     loader,
     setLoader,
     updateUserProfile,
-    loginWithGoogle 
+    loginWithGoogle,
   } = useAuth();
   const {
     register,
@@ -46,14 +48,16 @@ const SignUp = () => {
         const imageUrl = imageData.data.display_url;
         createUserWithEmail(data.email, data.password)
           .then((result) => {
-            updateUserProfile(data.name, imageUrl).then(() => {
+            updateUserProfile(data.name, imageUrl)
+              .then(() => {
                 toast.success("You have sign up successfully");
-                saveUserToDb(result.user)
-              navigate(from,{replace:true})
-            }).catch(error => {
+                saveUserToDb(result.user);
+                navigate(from, { replace: true });
+              })
+              .catch((error) => {
                 toast.error(error.message);
                 setLoader(false);
-            })
+              });
           })
           .catch((error) => {
             toast.error(error.message);
@@ -62,19 +66,20 @@ const SignUp = () => {
       });
   };
 
-
   const googleLogin = () => {
-    loginWithGoogle().then(result => {
-      const loggedUser = result.user;
-      toast.success("You have login successfully");
-      saveUserToDb(loggedUser)
-      navigate(from, { replace: true })
-      console.log(loggedUser);
-    }).catch(error => {
-      console.log(error);
-      toast.error(error.message)
-    })
-  }
+    loginWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        toast.success("You have login successfully");
+        saveUserToDb(loggedUser);
+        navigate(from, { replace: true });
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      });
+  };
 
   return (
     <Container>
@@ -143,7 +148,7 @@ const SignUp = () => {
                       <p className="text-red-600">Image is required !!</p>
                     )}
                   </div>
-                  <div>
+                  <div className="relative">
                     <div className="flex justify-between">
                       <label htmlFor="password" className="text-sm mb-2">
                         Password
@@ -157,12 +162,13 @@ const SignUp = () => {
                         // pattern:
                         //   /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
                       })}
-                      type="password"
+                      type={inputType}
                       name="password"
                       id="password"
                       placeholder="*******"
                       className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                     />
+                    <div className="absolute top-10 right-4 cursor-pointer">{Icon}</div>
                     {errors.password?.type === "required" && (
                       <p className="text-red-600">Password is required !!</p>
                     )}
@@ -183,7 +189,7 @@ const SignUp = () => {
                       </p>
                     )}
                   </div>
-                  <div>
+                  <div className="relative">
                     <div className="flex justify-between">
                       <label htmlFor="password" className="text-sm mb-2">
                         Confirm Password
@@ -191,12 +197,14 @@ const SignUp = () => {
                     </div>
                     <input
                       {...register("confirm", { required: true })}
-                      type="password"
+                      type={inputType}
                       name="confirm"
                       id="confirm"
                       placeholder="*******"
                       className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                     />
+                    <div className="absolute top-10 right-4 cursor-pointer">{Icon}</div>
+
                     {errors.confirm?.type === "required" && (
                       <p className="text-red-600">Password is required !!</p>
                     )}
@@ -224,7 +232,10 @@ const SignUp = () => {
                 </p>
                 <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
               </div>
-              <div onClick={googleLogin} className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+              <div
+                onClick={googleLogin}
+                className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+              >
                 <FcGoogle size={32} />
 
                 <p>Continue with Google</p>

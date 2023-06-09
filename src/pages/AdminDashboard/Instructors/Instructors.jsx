@@ -3,17 +3,25 @@ import Container from "../../../components/shared/Container";
 import useAuth from "../../../hooks/UseAuth";
 import EmptyState from "../../../components/shared/EmptyState";
 import InstructorCard from "./InstructorCard";
+import { useState } from "react";
+import Loader from "../../../components/shared/Loader";
 
 const Instructors = () => {
+  const [loading,setLoading] = useState(false)
   const { user } = useAuth();
   const { data: instructors = [] } = useQuery({
     queryKey: [user?.role === "instructor"],
     queryFn: async () => {
+      setLoading(true)
       const res = await fetch(`http://localhost:5000/users/instructor`);
+      setLoading(false)
       const data = res.json();
       return data;
     },
   });
+  if (loading) {
+    return <Loader/>
+  }
 
   return (
     <Container>

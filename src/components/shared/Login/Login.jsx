@@ -5,12 +5,14 @@ import useAuth from "../../../hooks/UseAuth";
 import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { saveUserToDb } from "../../../api/Auth";
+import UsePasswordToggle from "../../../hooks/UsePasswordToggle";
 
 const Login = () => {
   const { loginWithEmail, loginWithGoogle, loader, setLoader } = useAuth();
   const location = useLocation()
   const navigate = useNavigate()
   const from = location?.state?.from?.pathname || '/'
+  const [inputType, Icon] = UsePasswordToggle();
 
   const {
     register,
@@ -85,7 +87,7 @@ const Login = () => {
                   <p className="text-red-600">Email is required !!</p>
                 )}
               </div>
-              <div>
+              <div className="relative">
                 <div className="flex justify-between">
                   <label htmlFor="password" className="text-sm mb-2">
                     Password
@@ -93,13 +95,14 @@ const Login = () => {
                 </div>
                 <input
                   {...register("password", { required: true })}
-                  type="password"
+                  type={inputType}
                   name="password"
                   id="password"
                
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
+                <div className="absolute top-10 right-4 cursor-pointer ">{Icon}</div>
                 {errors.password && (
                   <p className="text-red-600">Password is required !!</p>
                 )}

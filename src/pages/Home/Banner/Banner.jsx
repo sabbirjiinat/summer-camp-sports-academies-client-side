@@ -5,16 +5,24 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import Container from '../../../components/shared/Container'
+import Loader from "../../../components/shared/Loader";
 
 const Banner = () => {
+  const [loading,setLoading] = useState(false)
   const [sliders, setSliders] = useState([]);
   useEffect(() => {
+    setLoading(true)
     fetch("http://localhost:5000/slider")
       .then((res) => res.json())
       .then((data) => {
         setSliders(data);
+        setLoading(false)
       });
   }, []);
+
+  if (loading) {
+    return <Loader/>
+  }
 
   return (
     <Container>
