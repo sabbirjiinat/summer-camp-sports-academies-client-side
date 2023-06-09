@@ -77,7 +77,7 @@ const ClassesTable = ({
         </td>
         <td>
           <button
-            disabled={feedback || status === 'approve' }
+            disabled={feedback}
             onClick={() => setIsOpen(true)}
             className="bg-lime-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600"
           >

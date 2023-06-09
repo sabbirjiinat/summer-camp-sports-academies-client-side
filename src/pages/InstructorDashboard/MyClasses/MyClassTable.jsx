@@ -1,3 +1,6 @@
+import { useState } from "react";
+import FeedbackModal from './FeedbackModal'
+
 const MyClassTable = ({ singleClass }) => {
   const {
     availableSeat,
@@ -5,9 +8,21 @@ const MyClassTable = ({ singleClass }) => {
     image,
     price,
     status,
+    feedback
   } = singleClass;
+ 
+  const [isOpen, setIsOpen] = useState(false);
+ 
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const feedBack = [ feedback ]
+  
   return (
-    <tr className="text-center font-medium">
+    <>
+     <tr className="text-center font-medium">
       <td>
         <div className="avatar">
           <div className="mask mask-squircle w-12 h-12">
@@ -24,11 +39,13 @@ const MyClassTable = ({ singleClass }) => {
           "Pending"}
       </td>
       <td>20</td>
-      <td>20</td>
+      <td><button disabled={!feedback} onClick={()=> setIsOpen(true)} className="bg-green-300 px-1 rounded-full disabled:cursor-not-allowed disabled:bg-gray-600  ">See feedback</button></td>
       <td>
         <button className="bg-lime-300 px-2 rounded-xl">Update</button>
       </td>
-    </tr>
+      </tr>
+      <FeedbackModal isOpen={isOpen} closeModal={closeModal} feedBack={feedBack} />
+    </>
   );
 };
 
