@@ -7,6 +7,7 @@ const AdminRoute = ({ children }) => {
     const [isInstructor, isInstructorLoading] = useInstructor()
     const { user, loader } = useAuth();
     const location = useLocation()
+  
  
     if (isInstructorLoading && loader) {
         return <Loader/>

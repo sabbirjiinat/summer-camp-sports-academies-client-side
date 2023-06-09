@@ -7,20 +7,20 @@ import { useState } from "react";
 import Loader from "../../../components/shared/Loader";
 
 const Instructors = () => {
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const { data: instructors = [] } = useQuery({
     queryKey: [user?.role === "instructor"],
     queryFn: async () => {
-      setLoading(true)
+      setLoading(true);
       const res = await fetch(`http://localhost:5000/users/instructor`);
-      setLoading(false)
+      setLoading(false);
       const data = res.json();
       return data;
     },
   });
   if (loading) {
-    return <Loader/>
+    return <Loader />;
   }
 
   return (

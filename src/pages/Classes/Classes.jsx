@@ -8,7 +8,7 @@ import Loader from "../../components/shared/Loader";
 const Classes = () => {
   const [loading, setLoading] = useState(false);
   const { data: approveClass = [] } = useQuery({
-    queryKey: ["classes"],
+    queryKey: ["approve"],
     queryFn: async () => {
       setLoading(true);
       const res = await fetch(

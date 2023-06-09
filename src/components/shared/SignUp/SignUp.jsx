@@ -18,11 +18,12 @@ const SignUp = () => {
   const [inputType, Icon] = UsePasswordToggle();
   const {
     createUserWithEmail,
-    loader,
-    setLoader,
+  
     updateUserProfile,
     loginWithGoogle,
   } = useAuth();
+  const [loader, setLoader] = useState(false)
+  console.log(loader);
   const {
     register,
     handleSubmit,
@@ -67,15 +68,18 @@ const SignUp = () => {
   };
 
   const googleLogin = () => {
+    setLoader(true)
     loginWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
         toast.success("You have login successfully");
         saveUserToDb(loggedUser);
+        setLoader(false)
         navigate(from, { replace: true });
         console.log(loggedUser);
       })
       .catch((error) => {
+        setLoader(false)
         console.log(error);
         toast.error(error.message);
       });

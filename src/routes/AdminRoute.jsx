@@ -7,6 +7,7 @@ const AdminRoute = ({ children }) => {
     const [isAdmin, isAdminLoading] = useAdmin();
     const { user, loader } = useAuth();
     const location = useLocation()
+   
  
     if (isAdminLoading && loader) {
         return <Loader/>

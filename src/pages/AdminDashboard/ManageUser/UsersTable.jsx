@@ -7,8 +7,10 @@ const UsersTable = ({ user, index,makeUserAdmin,makeUserInstructor }) => {
         <label>{index + 1}</label>
       </td>
       <td>
-        <div className="w-10 h-10">
+        <div className="avatar">
+        <div className="w-12 h-12">
           <img className="rounded-full object-cover" src={photo} alt="Profile" />
+        </div>
         </div>
       </td>
       

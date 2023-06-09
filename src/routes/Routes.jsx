@@ -14,6 +14,7 @@ import InstructorRoute from '../routes/InstructorRoute'
 import Instructors from "../pages/AdminDashboard/Instructors/Instructors";
 import ErrorPage from "../components/ErrorPage";
 import Classes from "../pages/Classes/Classes";
+import BookmarkedClass from "../pages/UserDashboard/BookmarkedClass/BookmarkedClass";
 
 
 const router = createBrowserRouter([
@@ -66,7 +67,12 @@ const router = createBrowserRouter([
             {
                 path: 'my-classes',
                 element:<InstructorRoute><MyClasses/></InstructorRoute>
-            }
+            },
+            //user dashboard
+            {
+                path: 'bookmarked-classes',
+                element:<BookmarkedClass/>
+            },
         ]
     }
     

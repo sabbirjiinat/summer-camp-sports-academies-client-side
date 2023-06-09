@@ -6,40 +6,43 @@ import ClassesTable from "./ClassesTable";
 const ManageClass = () => {
   const [classes, refetch, loading] = useManageClasses();
 
-    
-    if (loading) {
-      return <Loader/>
-    }
-    
-    const updateStatusOfClassApprove = (id) => {
-        fetch(`http://localhost:5000/classes/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type':'application/json'
-            },
-            body:JSON.stringify({status:'approve'})
-        }).then(res => res.json()).then(data => {
-            if (data.modifiedCount > 0) {
-                refetch()
-                toast.success('Class approved')
-            }
-        })
-    }
+  if (loading) {
+    return <Loader />;
+  }
 
-    const updateStatusOfClassDeny = (id) => {
-        fetch(`http://localhost:5000/classes/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type':'application/json'
-            },
-            body:JSON.stringify({status:'deny'})
-        }).then(res => res.json()).then(data => {
-            if (data.modifiedCount > 0) {
-                refetch()
-                toast.success('Class Denied')
-            }
-        })
-    }
+  const updateStatusOfClassApprove = (id) => {
+    fetch(`http://localhost:5000/classes/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "approve" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("Class approved");
+        }
+      });
+  };
+
+  const updateStatusOfClassDeny = (id) => {
+    fetch(`http://localhost:5000/classes/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "deny" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("Class Denied");
+        }
+      });
+  };
   return (
     <>
       {classes && Array.isArray(classes) && classes.length > 0 ? (
@@ -62,9 +65,9 @@ const ManageClass = () => {
               {classes.map((singleClass) => (
                 <ClassesTable
                   key={singleClass._id}
-                      singleClass={singleClass}
-                      updateStatusOfClassApprove={updateStatusOfClassApprove}
-                      updateStatusOfClassDeny={updateStatusOfClassDeny}
+                  singleClass={singleClass}
+                  updateStatusOfClassApprove={updateStatusOfClassApprove}
+                  updateStatusOfClassDeny={updateStatusOfClassDeny}
                 ></ClassesTable>
               ))}
             </tbody>

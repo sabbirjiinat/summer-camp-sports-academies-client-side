@@ -47,7 +47,7 @@ const ClassesTable = ({
       <tr className="text-center font-medium">
         <td>
           <div className="avatar">
-            <div className="mask mask-squircle w-12 h-12">
+            <div className="mask  w-12 h-12">
               <img className="rounded-full" src={image} alt="Sport Image" />
             </div>
           </div>
