@@ -16,6 +16,7 @@ import ErrorPage from "../components/ErrorPage";
 import Classes from "../pages/Classes/Classes";
 import BookmarkedClass from "../pages/UserDashboard/BookmarkedClass/BookmarkedClass";
 import Payment from "../pages/UserDashboard/Payment/Payment";
+import PaymentHistory from "../pages/UserDashboard/PaymentHistory/PaymentHistory";
 
 
 const router = createBrowserRouter([
@@ -72,13 +73,17 @@ const router = createBrowserRouter([
             //user dashboard
             {
                 path: 'bookmarked-classes',
-                element:<BookmarkedClass/>
+                element:<PrivateRoute><BookmarkedClass/></PrivateRoute>
             },
             {
                 path: 'payment/:id',
-                element: <Payment />,
+                element: <PrivateRoute><Payment /></PrivateRoute>,
                 loader:({params})=>fetch(`http://localhost:5000/sports/${params.id}`)
             },
+            {
+                path: 'enrolled-class',
+                element:<PrivateRoute><PaymentHistory/></PrivateRoute>
+            }
         ]
     }
     

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import EmptyState from "../../../components/shared/EmptyState";
 import Loader from "../../../components/shared/Loader";
 import useBookmark from "../../../hooks/UseBookmark";
@@ -10,6 +11,9 @@ const BookmarkedClass = () => {
   }
   return (
     <>
+      <Helmet>
+        <title>Summer Camp Sports - Bookmarked Classes</title>
+      </Helmet>
       {bookmarkedSports &&
       Array.isArray(bookmarkedSports) &&
       bookmarkedSports.length > 0 ? (

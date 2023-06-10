@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 import useAuth from "../../../hooks/UseAuth";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import {TbFidgetSpinner} from 'react-icons/tb'
 
 const CheckoutForm = ({ amount, singleSportData }) => {
   const stripe = useStripe();
@@ -13,6 +14,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { amount }).then((res) => {
@@ -31,6 +33,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
     if (card === null) {
       return;
     }
+   setLoading(true)
     setProcessing(true);
     const { error } = await stripe.createPaymentMethod({
       type: "card",
@@ -82,6 +85,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
           res.data.deleteMethod.deletedCount > 0 &&
           res.data.insertMethod.insertedId
         ) {
+        setLoading(false)
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -94,7 +98,9 @@ const CheckoutForm = ({ amount, singleSportData }) => {
     }
   };
   return (
-    <form className="w-2/3 mx-auto mt-60" onSubmit={handleSubmit}>
+    <div className="w-2/3 mx-auto mt-32">
+      <h2 className="text-center my-5 text-4xl text-indigo-600 font-medium">Amount : { amount}</h2>
+       <form  onSubmit={handleSubmit}>
       <CardElement
         options={{
           style: {
@@ -112,13 +118,14 @@ const CheckoutForm = ({ amount, singleSportData }) => {
         }}
       />
       <button
-        className="bg-indigo-600 px-2 py-1 rounded-sm font-medium text-white"
+        className="bg-indigo-600 px-4 py-1 rounded-sm font-medium text-white"
         type="submit"
         disabled={!stripe || !clientSecret || processing}
       >
-        Pay
+    {loading ? <TbFidgetSpinner className="mx-auto animate-spin text-white"/> : 'Pay'}
       </button>
     </form>
+   </div>
   );
 };
 

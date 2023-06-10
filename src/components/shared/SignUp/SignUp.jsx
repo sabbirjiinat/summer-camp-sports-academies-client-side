@@ -1,8 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Lottie from "lottie-react";
-import SignUpAnimation from "./signUp.json";
+// import Lottie from "lottie-react";
+// import SignUpAnimation from "./signUp.json";
 import Container from "../Container";
 import useAuth from "../../../hooks/UseAuth";
 import { useState } from "react";
@@ -87,7 +87,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <div className="md:flex justify-center items-center md:py-10">
+      <div className="md:flex justify-center items-center md:py-5">
         <div>
           <div className="flex justify-center items-center min-h-screen">
             <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
@@ -219,7 +219,7 @@ const SignUp = () => {
                 <div>
                   <button
                     type="submit"
-                    className="bg-rose-500 w-full rounded-md py-3 text-white"
+                    className="bg-indigo-500 w-full rounded-md py-3 text-white"
                   >
                     {loader ? (
                       <CgSpinnerTwo className="mx-auto animate-spin text-2xl" />
@@ -257,9 +257,9 @@ const SignUp = () => {
             </div>
           </div>
         </div>
-        <div className="min-h-screen">
+        {/* <div className="min-h-screen">
           <Lottie animationData={SignUpAnimation}></Lottie>
-        </div>
+        </div> */}
       </div>
     </Container>
   );

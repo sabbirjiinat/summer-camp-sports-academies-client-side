@@ -13,7 +13,7 @@ const Payment = () => {
 
   return (
     <div>
-      <h2>{singleSportData.price}</h2>
+      
       <Elements stripe={stripePromise}>
         <CheckoutForm amount={amount} singleSportData={singleSportData} />
       </Elements>

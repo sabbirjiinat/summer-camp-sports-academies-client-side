@@ -114,7 +114,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="bg-rose-500 w-full rounded-md py-3 text-white"
+                className="bg-indigo-500 w-full rounded-md py-3 text-white"
               >
                  {loader ? (
                       <CgSpinnerTwo className="mx-auto animate-spin text-2xl" />
