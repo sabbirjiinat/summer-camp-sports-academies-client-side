@@ -10,6 +10,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import { saveUserToDb } from "../../../api/Auth";
 import UsePasswordToggle from "../../../hooks/UsePasswordToggle";
+import { Helmet } from "react-helmet-async";
 const SignUp = () => {
   const [userError, setUserError] = useState("");
   const location = useLocation();
@@ -87,6 +88,9 @@ const SignUp = () => {
 
   return (
     <Container>
+       <Helmet>
+        <title>Summer Camp Sports - Sign Up</title>
+      </Helmet>
       <div className="md:flex justify-center items-center md:py-5">
         <div>
           <div className="flex justify-center items-center min-h-screen">

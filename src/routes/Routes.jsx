@@ -17,6 +17,7 @@ import Classes from "../pages/Classes/Classes";
 import BookmarkedClass from "../pages/UserDashboard/BookmarkedClass/BookmarkedClass";
 import Payment from "../pages/UserDashboard/Payment/Payment";
 import PaymentHistory from "../pages/UserDashboard/PaymentHistory/PaymentHistory";
+import UpdateMyClass from "../pages/InstructorDashboard/MyClasses/UpdateMyClass";
 
 
 const router = createBrowserRouter([
@@ -69,6 +70,11 @@ const router = createBrowserRouter([
             {
                 path: 'my-classes',
                 element:<InstructorRoute><MyClasses/></InstructorRoute>
+            },
+            {
+                path: 'single-class/:id',
+                element: <InstructorRoute><UpdateMyClass /></InstructorRoute>,
+                loader:({params})=>fetch(`http://localhost:5000/classes/single/${params.id}`)
             },
             //user dashboard
             {

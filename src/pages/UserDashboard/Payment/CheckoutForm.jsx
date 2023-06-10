@@ -40,7 +40,8 @@ const CheckoutForm = ({ amount, singleSportData }) => {
       card,
     });
     if (error) {
-      toast.error(error.message);
+      setLoading(false)
+     return toast.error(error.message);
     }
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -54,6 +55,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
       });
     if (confirmError) {
       toast.error(confirmError.message);
+      setLoading(false)
     }
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
@@ -118,7 +120,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
         }}
       />
       <button
-        className="bg-indigo-600 px-4 py-1 rounded-sm font-medium text-white"
+        className="bg-indigo-600 px-4 py-1 rounded-sm font-medium text-white disabled:cursor-not-allowed"
         type="submit"
         disabled={!stripe || !clientSecret || processing}
       >

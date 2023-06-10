@@ -1,24 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import Container from "../../components/shared/Container";
 import EmptyState from "../../components/shared/EmptyState";
 import ClassCard from "./ClassCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../components/shared/Loader";
 
 const Classes = () => {
   const [loading, setLoading] = useState(false);
-  const { data: approveClass = [] } = useQuery({
-    queryKey: ["approve"],
-    queryFn: async () => {
-      setLoading(true);
-      const res = await fetch(
-        "http://localhost:5000/classes/approve-classes/approve"
-      );
-      setLoading(false);
-      const data = await res.json();
-      return data;
-    },
-  });
+  const [approveClass,setApproveClass] = useState([])
+  // const { data: approveClass = [] } = useQuery({
+  //   queryKey: ["classes"],
+  //   queryFn: async () => {
+  //     setLoading(true);
+  //     const res = await fetch(
+  //       "http://localhost:5000/classes/approve-classes/approve"
+  //     );
+  //     setLoading(false);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:5000/approve-class/approve")
+      .then(res => res.json())
+      .then(data => {
+        setApproveClass(data)
+        setLoading(false);
+        console.log(data);
+    })
+  },[])
 
   if (loading) {
     return <Loader />;

@@ -7,6 +7,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { saveUserToDb } from "../../../api/Auth";
 import UsePasswordToggle from "../../../hooks/UsePasswordToggle";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { loginWithEmail, loginWithGoogle, } = useAuth();
@@ -56,7 +57,10 @@ const Login = () => {
   }
   return (
     <div>
-      <div className="flex justify-center items-center min-h-screen">
+       <Helmet>
+        <title>Summer Camp Sports - Login</title>
+      </Helmet>
+      <div className="flex justify-center items-center min-h-screen pb-5">
         <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
           <div className="mb-8 text-center">
             <h1 className="my-3 text-4xl font-bold">Log In</h1>
