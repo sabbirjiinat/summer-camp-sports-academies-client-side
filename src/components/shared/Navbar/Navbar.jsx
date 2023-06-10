@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/UseAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
   const navItems = (
     <div className="flex flex-col md:flex-row md:items-center  md:gap-4 text-base font-semibold">
       <NavLink
@@ -25,12 +26,12 @@ const Navbar = () => {
       >
         Classes
       </NavLink>
-      <NavLink
-        to="/dashboard/"
+      {user && <NavLink
+        to='/dashboard'
         className={({ isActive }) => (isActive ? "text-[#4215f2]" : "")}
       >
         Dashboard
-      </NavLink>
+      </NavLink>}
       {user ? (
         <button
           onClick={() => logOut()}

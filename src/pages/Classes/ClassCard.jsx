@@ -5,14 +5,17 @@ import useInstructor from "../../hooks/UseInstructor";
 import { useNavigate } from "react-router-dom";
 
 
+
 const ClassCard = ({ singleClass }) => {
   const { availableSeat, className, image, instructorName, price, _id, email } =
     singleClass;
 
+  // console.log(bookmarkedSports);
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
   const { user } = useAuth();
   const navigate = useNavigate();
+
 
   const bookmarkSport = () => {
     if (user) {
@@ -71,7 +74,7 @@ const ClassCard = ({ singleClass }) => {
     >
       <figure>
         <img
-          className="group-hover:scale-110 transition"
+          className="group-hover:scale-110 transition h-36 w-full object-cover"
           src={image}
           alt="Shoes"
         />
@@ -87,7 +90,7 @@ const ClassCard = ({ singleClass }) => {
         </div>
         <button
           onClick={bookmarkSport}
-          disabled={isAdmin || isInstructor}
+          disabled={isAdmin || isInstructor || availableSeat === 0 }
           className="mt-auto bg-[#4e32c9] px-2 py-2 rounded-sm text-white font-medium text-base disabled:cursor-not-allowed"
         >
           Select

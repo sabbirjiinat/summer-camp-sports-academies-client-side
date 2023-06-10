@@ -6,9 +6,11 @@ import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { saveUserToDb } from "../../../api/Auth";
 import UsePasswordToggle from "../../../hooks/UsePasswordToggle";
+import { useState } from "react";
 
 const Login = () => {
-  const { loginWithEmail, loginWithGoogle, loader, setLoader } = useAuth();
+  const { loginWithEmail, loginWithGoogle, } = useAuth();
+  const [loader, setLoader] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const from = location?.state?.from?.pathname || '/'
@@ -26,14 +28,14 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        toast.success("You have login successfully");
         setLoader(false)
+        toast.success("You have login successfully");
         navigate(from,{replace:true})
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.message);
         setLoader(false)
+        toast.error(error.message);
       });
   };
 

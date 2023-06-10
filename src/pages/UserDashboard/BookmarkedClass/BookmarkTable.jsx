@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import useBookmark from "../../../hooks/UseBookmark";
+import { Link } from "react-router-dom";
 
 const BookmarkTable = ({ bookmarkedSport }) => {
   const {
@@ -56,9 +57,9 @@ const BookmarkTable = ({ bookmarkedSport }) => {
       <td>{availableSeat}</td>
       <td>{price}</td>{" "}
       <td>
-        <button className="bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600">
+        <Link to={`/dashboard/payment/${_id}`} className="bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600">
           Pay
-        </button>
+        </Link>
       </td>
       <td>
         <button

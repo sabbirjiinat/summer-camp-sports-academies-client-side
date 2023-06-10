@@ -6,7 +6,8 @@ const useBookmark = () => {
     const [loading,setLoading] = useState(false)
   const { user } = useAuth();
   const { data: bookmarkedSports = [],refetch } = useQuery({
-    queryKey: ["sports",user?.email],
+    queryKey: ["sports", user?.email],
+    
       queryFn: async () => {
         setLoading(true)
       const res = await fetch(

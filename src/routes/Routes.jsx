@@ -15,6 +15,7 @@ import Instructors from "../pages/AdminDashboard/Instructors/Instructors";
 import ErrorPage from "../components/ErrorPage";
 import Classes from "../pages/Classes/Classes";
 import BookmarkedClass from "../pages/UserDashboard/BookmarkedClass/BookmarkedClass";
+import Payment from "../pages/UserDashboard/Payment/Payment";
 
 
 const router = createBrowserRouter([
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
             {
                 path: 'bookmarked-classes',
                 element:<BookmarkedClass/>
+            },
+            {
+                path: 'payment/:id',
+                element: <Payment />,
+                loader:({params})=>fetch(`http://localhost:5000/sports/${params.id}`)
             },
         ]
     }

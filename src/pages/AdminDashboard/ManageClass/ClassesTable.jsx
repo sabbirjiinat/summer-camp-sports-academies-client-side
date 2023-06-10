@@ -61,7 +61,7 @@ const ClassesTable = ({
           <button
             onClick={() => updateStatusOfClassApprove(_id)}
             disabled={status === "approve" || status === "deny"}
-            className="bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600"
+            className={`bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed ${status === 'approve' && 'disabled:bg-gray-600'}`}
           >
             Approve
           </button>
@@ -70,7 +70,7 @@ const ClassesTable = ({
           <button
             onClick={() => updateStatusOfClassDeny(_id)}
             disabled={status === "approve" || status === "deny"}
-            className="bg-rose-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600"
+            className={`bg-rose-300 px-2 rounded-xl disabled:cursor-not-allowed ${status === 'deny' && 'disabled:bg-gray-600'}`}
           >
             Deny
           </button>
