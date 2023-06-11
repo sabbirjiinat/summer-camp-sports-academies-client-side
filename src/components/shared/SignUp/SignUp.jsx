@@ -1,8 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import Lottie from "lottie-react";
-// import SignUpAnimation from "./signUp.json";
 import Container from "../Container";
 import useAuth from "../../../hooks/UseAuth";
 import { useState } from "react";
@@ -24,7 +22,6 @@ const SignUp = () => {
     loginWithGoogle,
   } = useAuth();
   const [loader, setLoader] = useState(false)
-  console.log(loader);
   const {
     register,
     handleSubmit,
@@ -77,11 +74,9 @@ const SignUp = () => {
         saveUserToDb(loggedUser);
         setLoader(false)
         navigate(from, { replace: true });
-        console.log(loggedUser);
       })
       .catch((error) => {
         setLoader(false)
-        console.log(error);
         toast.error(error.message);
       });
   };
@@ -135,7 +130,7 @@ const SignUp = () => {
                       name="image"
                       accept="image/*"
                     />
-                    {errors.file && (
+                    {errors.image && (
                       <p className="text-red-600">Image is required !!</p>
                     )}
                   </div>
@@ -153,7 +148,7 @@ const SignUp = () => {
                       data-temp-mail-org="0"
                     />
                     {errors.email && (
-                      <p className="text-red-600">Image is required !!</p>
+                      <p className="text-red-600">Email is required !!</p>
                     )}
                   </div>
                   <div className="relative">
@@ -165,10 +160,10 @@ const SignUp = () => {
                     <input
                       {...register("password", {
                         required: true,
-                        // minLength: 6,
-                        // maxLength: 16,
-                        // pattern:
-                        //   /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
+                        minLength: 6,
+                        maxLength: 16,
+                        pattern:
+                          /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
                       })}
                       type={inputType}
                       name="password"
@@ -261,9 +256,6 @@ const SignUp = () => {
             </div>
           </div>
         </div>
-        {/* <div className="min-h-screen">
-          <Lottie animationData={SignUpAnimation}></Lottie>
-        </div> */}
       </div>
     </Container>
   );

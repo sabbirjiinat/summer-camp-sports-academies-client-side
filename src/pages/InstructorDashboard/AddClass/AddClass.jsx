@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../hooks/UseAuth";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useState } from "react";
+import SectionTitle from "../../../components/shared/SectionTitle";
 
 
 const AddClass = () => {
@@ -63,6 +64,7 @@ const AddClass = () => {
       <Helmet>
         <title>Summer Camp Sports - Add Class</title>
       </Helmet>
+      <SectionTitle mainHeading='Add a Class'/>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="space-y-1 text-sm">

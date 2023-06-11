@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { motion } from "framer-motion"
 // import useAdmin from "../../hooks/UseAdmin";
 import useAuth from "../../hooks/UseAuth";
 // import useInstructor from "../../hooks/UseInstructor";
@@ -16,7 +17,7 @@ const ClassCard = ({ singleClass }) => {
     totalEnrolledStudent,
   } = singleClass;
 
-  // console.log(bookmarkedSports);
+
   // const [isAdmin] = useAdmin();
   // const [isInstructor] = useInstructor();
   const { user } = useAuth();
@@ -74,7 +75,12 @@ const ClassCard = ({ singleClass }) => {
   };
 
   return (
-    <div
+    <motion.div
+    whileHover={{
+      scale: 1.1,
+      transition: { duration: 0.3 },
+    }}
+    whileTap={{ scale: 0.9 }}
       className={`card card-compact w-full border border-gray-300 group
      ${
        availableSeat === 0
@@ -107,7 +113,7 @@ const ClassCard = ({ singleClass }) => {
           Select
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

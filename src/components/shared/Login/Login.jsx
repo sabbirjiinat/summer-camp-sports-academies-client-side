@@ -23,18 +23,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     setLoader(true)
     loginWithEmail(data.email, data.password)
-      .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
+      .then(() => {
         setLoader(false)
         toast.success("You have login successfully");
         navigate(from,{replace:true})
       })
       .catch((error) => {
-        console.log(error);
         setLoader(false)
         toast.error(error.message);
       });
@@ -48,9 +44,7 @@ const Login = () => {
       setLoader(false)
       navigate(from, { replace: true })
       toast.success("You have login successfully");
-      console.log(loggedUser);
     }).catch(error => {
-      console.log(error);
       setLoader(false)
       toast.error(error.message)
     })

@@ -1,11 +1,17 @@
+import { motion } from "framer-motion";
 const PopularCard = ({ singleClass }) => {
-  const { className, image, instructorName, price , availableSeat } = singleClass;
+  const { className, image, instructorName, price, availableSeat } =
+    singleClass;
 
   return (
-    <div
-      className={`card card-compact w-full border border-gray-300 group
-      flex
-    `}
+    <motion.div
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.4 }}
+      transition={{ duration: 0.2 }}
+      
+      className='card card-compact w-full border bg-[#354172] border-gray-300 group text-white
+      flex rounded-md
+    '
     >
       <figure>
         <img
@@ -23,9 +29,8 @@ const PopularCard = ({ singleClass }) => {
           <p className="text-base font-normal ">Seat : {availableSeat}</p>
           <p className="text-base font-normal ">Price : ${price}</p>
         </div>
-       
       </div>
-    </div>
+    </motion.div>
   );
 };
 

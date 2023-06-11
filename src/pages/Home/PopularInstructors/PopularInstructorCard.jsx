@@ -1,8 +1,16 @@
-
+import { motion } from "framer-motion";
 const PopularInstructorCard = ({instructor}) => {
     const { photo, name, email } = instructor;
   return (
-    <div className="col-span-1 flex  group border border-gray-300 p-3 rounded-md">
+    <motion.div
+  
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.4 }}
+    transition={{ duration: 0.2 }}
+   
+   
+
+      className="col-span-1 flex  group border border-gray-300 p-3 rounded-md">
       <div className="flex flex-col gap-2 w-full">
         <div
           className="
@@ -34,10 +42,10 @@ const PopularInstructorCard = ({instructor}) => {
           ></div>
         </div>
         <div className="font-semibold text-lg">Name: {name}</div>
-              <div className="font-light text-neutral-500">Email : {email}</div>
+              <div className="font-normal">Email : {email}</div>
              
       </div>
-      </div>
+      </motion.div>
   )
 };
 

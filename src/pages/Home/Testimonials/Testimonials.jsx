@@ -16,7 +16,7 @@ const Testimonials = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/testimonials")
+    fetch("https://summer-camp-sports-academie-server.vercel.app/testimonials")
       .then((res) => res.json())
       .then((data) => {
         setTestimonials(data);

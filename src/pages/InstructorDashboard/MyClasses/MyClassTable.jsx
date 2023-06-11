@@ -13,11 +13,9 @@ const MyClassTable = ({ singleClass }) => {
     totalEnrolledStudent,
     _id
   } = singleClass;
-  console.log(singleClass);
- 
+
   const [isOpen, setIsOpen] = useState(false);
  
-
   const closeModal = () => {
     setIsOpen(false);
   };

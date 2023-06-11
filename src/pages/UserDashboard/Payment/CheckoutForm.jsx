@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
 
 const CheckoutForm = ({ amount, singleSportData }) => {
-  console.log(singleSportData);
   const stripe = useStripe();
   const elements = useElements();
   const [axiosSecure] = useAxiosSecure();

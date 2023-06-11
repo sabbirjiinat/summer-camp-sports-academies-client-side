@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/shared/Loader";
 import { Helmet } from "react-helmet-async";
 
+
 const Classes = () => {
   const [loading, setLoading] = useState(false);
   const [approveClass, setApproveClass] = useState([]);
@@ -27,6 +28,7 @@ const Classes = () => {
 
   return (
     <Container>
+
       {approveClass &&
       Array.isArray(approveClass) &&
       approveClass.length > 0 ? (

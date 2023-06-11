@@ -7,6 +7,7 @@ import Loader from "../../../components/shared/Loader";
 import EnrolledCard from "./EnrolledCard";
 import { Helmet } from "react-helmet-async";
 
+
 const PaymentHistory = () => {
   const [loading, setLoading] = useState(false);
   const [axiosSecure] = useAxiosSecure();
@@ -27,7 +28,8 @@ const PaymentHistory = () => {
       <div>
           <Helmet>
               <title>Summer Camp Sports - Payment History</title>
-          </Helmet>
+      </Helmet>
+  
       {enrolledClass &&
       Array.isArray(enrolledClass) &&
       enrolledClass.length > 0 ? (
