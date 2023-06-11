@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 
 const PopularInstructorCard = ({instructor}) => {
     const { photo, name, email } = instructor;
@@ -36,7 +35,7 @@ const PopularInstructorCard = ({instructor}) => {
         </div>
         <div className="font-semibold text-lg">Name: {name}</div>
               <div className="font-light text-neutral-500">Email : {email}</div>
-              <Link className="bg-indigo-500 mt-auto text-center text-white py-1 font-medium">See Classes</Link>
+             
       </div>
       </div>
   )

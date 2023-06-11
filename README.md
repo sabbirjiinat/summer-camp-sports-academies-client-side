@@ -17,25 +17,8 @@
 
 # packages/ technology name
 
-- react
-react-dom
-tailwindcss
-daisyui
-headlessui
-stripe/react-stripe-js
-stripe/stripe-js
-tanstack-query
-axios
-firebase
-react-helmet-async
-react-hook-form
-react-hot-toast
-react-icons
-react-responsive-carousel
-react-router-dom
-react-spinners
-sweetalert
-swiper
+- react, react-dom, tailwindcss, daisyui, headlessui, react-stripe, axios, firebase, react-helmet-async, react-hook-form, react-hot-toast, react-icons, react-responsive-carousel, react-router-dom, react-spinners, sweetalert, swiper, cors, dotenv, express.js
+jsonwebtoken, mongodb, morgan
 
 ## 🔗Live Site Links
 

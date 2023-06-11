@@ -88,6 +88,8 @@ const CheckoutForm = ({ amount, singleSportData }) => {
           res.data.deleteMethod.deletedCount > 0 &&
           res.data.insertMethod.insertedId
         ) {
+
+
           setLoading(false);
           Swal.fire({
             position: "top-end",

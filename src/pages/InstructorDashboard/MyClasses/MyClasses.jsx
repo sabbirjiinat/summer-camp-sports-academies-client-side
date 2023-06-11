@@ -28,7 +28,7 @@ const MyClasses = () => {
   return (
     <>
       <Helmet>
-        <title>Summer Camp Sports - Add Class </title>
+        <title>Summer Camp Sports - My Classes</title>
       </Helmet>
       {classes && Array.isArray(classes) && classes.length > 0 ? (
         <div className="overflow-hidden">

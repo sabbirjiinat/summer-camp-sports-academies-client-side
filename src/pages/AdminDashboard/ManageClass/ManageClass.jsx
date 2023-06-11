@@ -4,6 +4,7 @@ import Loader from "../../../components/shared/Loader";
 import useManageClasses from "../../../hooks/UseManageClasses";
 import ClassesTable from "./ClassesTable";
 import useAxiosSecure from "../../../hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 const ManageClass = () => {
   const [classes, refetch, loading] = useManageClasses();
  const [axiosSecure] = useAxiosSecure()
@@ -35,6 +36,9 @@ const ManageClass = () => {
   };
   return (
     <>
+       <Helmet>
+        <title>Summer Camp Sports - Manage Classes</title>
+      </Helmet>
       {classes && Array.isArray(classes) && classes.length > 0 ? (
         <div className="overflow-hidden">
           <table className="table table-xs">

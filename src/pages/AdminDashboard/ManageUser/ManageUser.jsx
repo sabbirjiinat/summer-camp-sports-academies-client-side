@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import Loader from "../../../components/shared/Loader";
 import EmptyState from "../../../components/shared/EmptyState";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
   const [loading, setLoading] = useState(false);
@@ -64,6 +65,9 @@ const ManageUser = () => {
 
   return (
     <>
+       <Helmet>
+        <title>Summer Camp Sports - Manage User</title>
+      </Helmet>
       {users && Array.isArray(users) && users.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="table">

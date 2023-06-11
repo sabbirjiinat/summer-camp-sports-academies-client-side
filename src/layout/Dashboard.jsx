@@ -7,6 +7,7 @@ import {BsFillBookmarkHeartFill} from 'react-icons/bs'
 import useAuth from "../hooks/UseAuth";
 import useAdmin from "../hooks/UseAdmin";
 import useInstructor from "../hooks/UseInstructor";
+import { Helmet } from "react-helmet-async";
 const Dashboard = () => {
   const { user } = useAuth();
   const [isAdmin] = useAdmin();
@@ -14,6 +15,9 @@ const Dashboard = () => {
 
   return (
     <Container>
+       <Helmet>
+        <title>Summer Camp Sports - Dashboard</title>
+      </Helmet>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
