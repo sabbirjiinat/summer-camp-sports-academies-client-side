@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser && currentUser.email) {
         axios
-          .post(`http://localhost:5000/jwt`, {
+          .post(`https://summer-camp-sports-academie-server.vercel.app/jwt`, {
             email: currentUser?.email,
           })
           .then((data) => {

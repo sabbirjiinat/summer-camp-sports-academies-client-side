@@ -12,7 +12,7 @@ const Banner = () => {
   const [sliders, setSliders] = useState([]);
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/slider")
+    fetch("https://summer-camp-sports-academie-server.vercel.app/slider")
       .then((res) => res.json())
       .then((data) => {
         setSliders(data);

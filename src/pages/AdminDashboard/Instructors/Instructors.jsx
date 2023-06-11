@@ -13,7 +13,9 @@ const Instructors = () => {
     queryKey: [user?.role === "instructor"],
     queryFn: async () => {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/users/instructor`);
+      const res = await fetch(
+        `https://summer-camp-sports-academie-server.vercel.app/users/instructor`
+      );
       setLoading(false);
       const data = res.json();
       return data;

@@ -3,21 +3,21 @@ import useAuth from "./UseAuth";
 import { useState } from "react";
 
 const useBookmark = () => {
-    const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const { data: bookmarkedSports = [],refetch } = useQuery({
+  const { data: bookmarkedSports = [], refetch } = useQuery({
     queryKey: ["sports", user?.email],
-    
-      queryFn: async () => {
-        setLoading(true)
+
+    queryFn: async () => {
+      setLoading(true);
       const res = await fetch(
-        `http://localhost:5000/sports?studentEmail=${user?.email}`
-          );
-          setLoading(false)
+        `https://summer-camp-sports-academie-server.vercel.app/sports?studentEmail=${user?.email}`
+      );
+      setLoading(false);
       const data = res.json();
       return data;
     },
   });
-  return [bookmarkedSports,loading,refetch];
+  return [bookmarkedSports, loading, refetch];
 };
 export default useBookmark;

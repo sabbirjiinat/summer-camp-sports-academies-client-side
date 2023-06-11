@@ -10,7 +10,7 @@ import AdminRoute from "./AdminRoute";
 import AddClass from "../pages/InstructorDashboard/AddClass/AddClass";
 import ManageClass from "../pages/AdminDashboard/ManageClass/ManageClass";
 import MyClasses from "../pages/InstructorDashboard/MyClasses/MyClasses";
-import InstructorRoute from '../routes/InstructorRoute'
+import InstructorRoute from "../routes/InstructorRoute";
 import Instructors from "../pages/AdminDashboard/Instructors/Instructors";
 import ErrorPage from "../components/ErrorPage";
 import Classes from "../pages/Classes/Classes";
@@ -19,81 +19,118 @@ import Payment from "../pages/UserDashboard/Payment/Payment";
 import PaymentHistory from "../pages/UserDashboard/PaymentHistory/PaymentHistory";
 import UpdateMyClass from "../pages/InstructorDashboard/MyClasses/UpdateMyClass";
 
-
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Main />,
-        errorElement:<ErrorPage/>,
-        children: [
-            {
-                path: '/',
-                element:<Home/>
-            },
-            {
-                path: 'instructors',
-                element:<Instructors/>
-            },
-            {
-                path: 'classes',
-                element:<Classes/>
-            },
-            {
-                path: '/login',
-                element:<Login/>
-            },
-            {
-                path: '/signup',
-                element:<SignUp/>
-            }
-        ]
-    
-    
-    },
-    {
-        path: '/dashboard',
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
-        children: [
-            {
-                path: 'manage-users',
-                element:<AdminRoute><ManageUser/></AdminRoute>
-            },
-            {
-                path: 'manage-classes',
-                element:<AdminRoute><ManageClass/></AdminRoute>
-            },
-            //instructor dashboard
-            {
-                path: 'add-class',
-                element:<InstructorRoute><AddClass/></InstructorRoute>
-            },
-            {
-                path: 'my-classes',
-                element:<InstructorRoute><MyClasses/></InstructorRoute>
-            },
-            {
-                path: 'single-class/:id',
-                element: <InstructorRoute><UpdateMyClass /></InstructorRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/classes/single/${params.id}`)
-            },
-            //user dashboard
-            {
-                path: 'bookmarked-classes',
-                element:<PrivateRoute><BookmarkedClass/></PrivateRoute>
-            },
-            {
-                path: 'payment/:id',
-                element: <PrivateRoute><Payment /></PrivateRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/sports/${params.id}`)
-            },
-            {
-                path: 'enrolled-class',
-                element:<PrivateRoute><PaymentHistory/></PrivateRoute>
-            }
-        ]
-    }
-    
-])
-
+  {
+    path: "/",
+    element: <Main />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "instructors",
+        element: <Instructors />,
+      },
+      {
+        path: "classes",
+        element: <Classes />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUser />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-classes",
+        element: (
+          <AdminRoute>
+            <ManageClass />
+          </AdminRoute>
+        ),
+      },
+      //instructor dashboard
+      {
+        path: "add-class",
+        element: (
+          <InstructorRoute>
+            <AddClass />
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "my-classes",
+        element: (
+          <InstructorRoute>
+            <MyClasses />
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "single-class/:id",
+        element: (
+          <InstructorRoute>
+            <UpdateMyClass />
+          </InstructorRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://summer-camp-sports-academie-server.vercel.app/classes/single/${params.id}`
+          ),
+      },
+      //user dashboard
+      {
+        path: "bookmarked-classes",
+        element: (
+          <PrivateRoute>
+            <BookmarkedClass />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://summer-camp-sports-academie-server.vercel.app/sports/${params.id}`
+          ),
+      },
+      {
+        path: "enrolled-class",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+]);
 
 export default router;

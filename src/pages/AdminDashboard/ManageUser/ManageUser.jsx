@@ -24,13 +24,16 @@ const ManageUser = () => {
   }
 
   const makeUserAdmin = (email, name) => {
-    fetch(`http://localhost:5000/users/${email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ role: "admin" }),
-    })
+    fetch(
+      `https://summer-camp-sports-academie-server.vercel.app/users/${email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ role: "admin" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -40,13 +43,16 @@ const ManageUser = () => {
       });
   };
   const makeUserInstructor = (email, name) => {
-    fetch(`http://localhost:5000/users/${email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ role: "instructor" }),
-    })
+    fetch(
+      `https://summer-camp-sports-academie-server.vercel.app/users/${email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ role: "instructor" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

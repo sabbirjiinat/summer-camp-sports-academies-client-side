@@ -34,10 +34,10 @@ const ClassCard = ({ singleClass }) => {
         sportsId: _id,
         studentEmail: user?.email,
         instructorEmail: email,
-        totalEnrolledStudent:parseInt(totalEnrolledStudent),
+        totalEnrolledStudent: parseInt(totalEnrolledStudent),
       };
 
-      fetch(`http://localhost:5000/sports`, {
+      fetch(`https://summer-camp-sports-academie-server.vercel.app/sports`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
