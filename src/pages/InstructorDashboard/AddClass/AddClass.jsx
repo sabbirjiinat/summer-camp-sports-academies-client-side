@@ -40,6 +40,7 @@ const AddClass = () => {
           availableSeat : parseFloat(availableSeat),
           price: parseFloat(price),
           image: imageUrl,
+          totalEnrolledStudent:0,
           status:'pending'
         };
         axiosSecure.post("/classes", newSportClass).then((data) => {
@@ -69,6 +70,7 @@ const AddClass = () => {
               Class Name
             </label>
             <input
+           
               {...register("className", { required: true })}
               className="w-full px-4 py-2 text-gray-800 border  border-gray-300 focus:outline-rose-500  rounded-md "
               id="name"
@@ -85,9 +87,10 @@ const AddClass = () => {
               Instructor Name
             </label>
             <input
+            disabled
             defaultValue={user?.displayName}
               {...register("instructorName", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500   rounded-md"
+              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500 disabled:cursor-not-allowed    rounded-md"
               id="name"
               type="text"
               placeholder="Instructor Name"
@@ -102,9 +105,10 @@ const AddClass = () => {
               Instructor Email
             </label>
             <input
+              disabled
             defaultValue={user?.email}
               {...register("email", { required: true })}
-              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500  rounded-md"
+              className="w-full px-4 py-2 text-gray-800 border border-gray-300 focus:outline-rose-500 disabled:cursor-not-allowed  rounded-md"
               id="email"
               type="email"
               placeholder="Instructor Email"

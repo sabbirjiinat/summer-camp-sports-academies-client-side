@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useBookmark from "../../../hooks/UseBookmark";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const BookmarkTable = ({ bookmarkedSport }) => {
   const {
@@ -13,6 +14,7 @@ const BookmarkTable = ({ bookmarkedSport }) => {
     _id,
   } = bookmarkedSport;
   const [, , refetch] = useBookmark();
+  const [axiosSecure] = useAxiosSecure();
 
   const deleteBookmarked = (id) => {
     Swal.fire({
@@ -25,12 +27,11 @@ const BookmarkTable = ({ bookmarkedSport }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/sports/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
+        axiosSecure
+          .delete(`/sports/${id}`)
+
           .then((data) => {
-            if (data.deletedCount > 0) {
+            if (data.data.deletedCount > 0) {
               refetch();
               Swal.fire(
                 "Deleted!",
@@ -57,7 +58,10 @@ const BookmarkTable = ({ bookmarkedSport }) => {
       <td>{availableSeat}</td>
       <td>{price}</td>{" "}
       <td>
-        <Link to={`/dashboard/payment/${_id}`} className="bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600">
+        <Link
+          to={`/dashboard/payment/${_id}`}
+          className="bg-green-300 px-2 rounded-xl disabled:cursor-not-allowed disabled:bg-gray-600"
+        >
           Pay
         </Link>
       </td>

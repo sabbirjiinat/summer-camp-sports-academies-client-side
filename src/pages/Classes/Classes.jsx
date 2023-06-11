@@ -1,25 +1,14 @@
-// import { useQuery } from "@tanstack/react-query";
 import Container from "../../components/shared/Container";
 import EmptyState from "../../components/shared/EmptyState";
 import ClassCard from "./ClassCard";
 import { useEffect, useState } from "react";
 import Loader from "../../components/shared/Loader";
+import { Helmet } from "react-helmet-async";
 
 const Classes = () => {
   const [loading, setLoading] = useState(false);
   const [approveClass,setApproveClass] = useState([])
-  // const { data: approveClass = [] } = useQuery({
-  //   queryKey: ["classes"],
-  //   queryFn: async () => {
-  //     setLoading(true);
-  //     const res = await fetch(
-  //       "http://localhost:5000/classes/approve-classes/approve"
-  //     );
-  //     setLoading(false);
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
+ 
   useEffect(() => {
     setLoading(true);
     fetch("http://localhost:5000/approve-class/approve")
@@ -27,7 +16,7 @@ const Classes = () => {
       .then(data => {
         setApproveClass(data)
         setLoading(false);
-        console.log(data);
+       
     })
   },[])
 
@@ -40,7 +29,11 @@ const Classes = () => {
       {approveClass &&
       Array.isArray(approveClass) &&
       approveClass.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 pb-10">
+          <div>
+            <Helmet>
+              <title>Summer Camp Sports - Classes</title>
+            </Helmet>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 pb-10">
           {approveClass.map((singleClass) => (
             <ClassCard
               key={singleClass._id}
@@ -48,6 +41,7 @@ const Classes = () => {
             ></ClassCard>
           ))}
         </div>
+      </div>
       ) : (
         <EmptyState
           message="No Class available Here"

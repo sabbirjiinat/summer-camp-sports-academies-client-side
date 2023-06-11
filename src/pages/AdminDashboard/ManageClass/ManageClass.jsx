@@ -3,45 +3,35 @@ import EmptyState from "../../../components/shared/EmptyState";
 import Loader from "../../../components/shared/Loader";
 import useManageClasses from "../../../hooks/UseManageClasses";
 import ClassesTable from "./ClassesTable";
+import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 const ManageClass = () => {
   const [classes, refetch, loading] = useManageClasses();
-
+ const [axiosSecure] = useAxiosSecure()
   if (loading) {
     return <Loader />;
   }
 
   const updateStatusOfClassApprove = (id) => {
-    fetch(`http://localhost:5000/classes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "approve" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
+
+    axiosSecure.patch(`/classes/${id}`, { status: 'approve' })
+      .then(data => {
+        if (data.data.modifiedCount > 0) {
           refetch();
           toast.success("Class approved");
-        }
-      });
+      }
+    })
+
+  
   };
 
   const updateStatusOfClassDeny = (id) => {
-    fetch(`http://localhost:5000/classes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "deny" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          refetch();
-          toast.success("Class Denied");
-        }
-      });
+    axiosSecure.patch(`/classes/${id}`, { status: 'deny' })
+    .then(data => {
+      if (data.data.modifiedCount > 0) {
+        refetch();
+        toast.success("Class Denied");
+    }
+  })
   };
   return (
     <>

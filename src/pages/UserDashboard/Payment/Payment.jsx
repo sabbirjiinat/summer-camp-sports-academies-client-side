@@ -10,7 +10,7 @@ const stripePromise = loadStripe(
 const Payment = () => {
   const singleSportData = useLoaderData();
   const { price } = singleSportData;
-  const amount = parseFloat(price.toFixed(2));
+  const amount = parseFloat(price).toFixed(2);
 
   return (
     <>

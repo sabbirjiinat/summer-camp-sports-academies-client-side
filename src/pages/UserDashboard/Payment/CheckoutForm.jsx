@@ -5,16 +5,17 @@ import useAxiosSecure from "../../../hooks/UseAxiosSecure";
 import useAuth from "../../../hooks/UseAuth";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import {TbFidgetSpinner} from 'react-icons/tb'
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const CheckoutForm = ({ amount, singleSportData }) => {
+  console.log(singleSportData);
   const stripe = useStripe();
   const elements = useElements();
   const [axiosSecure] = useAxiosSecure();
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { amount }).then((res) => {
@@ -33,15 +34,15 @@ const CheckoutForm = ({ amount, singleSportData }) => {
     if (card === null) {
       return;
     }
-   setLoading(true)
+    setLoading(true);
     setProcessing(true);
     const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
     if (error) {
-      setLoading(false)
-     return toast.error(error.message);
+      setLoading(false);
+      return toast.error(error.message);
     }
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -55,7 +56,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
       });
     if (confirmError) {
       toast.error(confirmError.message);
-      setLoading(false)
+      setLoading(false);
     }
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
@@ -87,7 +88,7 @@ const CheckoutForm = ({ amount, singleSportData }) => {
           res.data.deleteMethod.deletedCount > 0 &&
           res.data.insertMethod.insertedId
         ) {
-        setLoading(false)
+          setLoading(false);
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -101,33 +102,39 @@ const CheckoutForm = ({ amount, singleSportData }) => {
   };
   return (
     <div className="w-2/3 mx-auto mt-32">
-      <h2 className="text-center my-5 text-4xl text-indigo-600 font-medium">Amount : { amount}</h2>
-       <form  onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+      <h2 className="text-center my-5 text-4xl text-indigo-600 font-medium">
+        Amount : {amount}
+      </h2>
+      <form onSubmit={handleSubmit}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        className="bg-indigo-600 px-4 py-1 rounded-sm font-medium text-white disabled:cursor-not-allowed"
-        type="submit"
-        disabled={!stripe || !clientSecret || processing}
-      >
-    {loading ? <TbFidgetSpinner className="mx-auto animate-spin text-white"/> : 'Pay'}
-      </button>
-    </form>
-   </div>
+          }}
+        />
+        <button
+          className="bg-indigo-600 px-4 py-1 rounded-sm font-medium text-white disabled:cursor-not-allowed"
+          type="submit"
+          disabled={!stripe || !clientSecret || processing}
+        >
+          {loading ? (
+            <TbFidgetSpinner className="mx-auto animate-spin text-white" />
+          ) : (
+            "Pay"
+          )}
+        </button>
+      </form>
+    </div>
   );
 };
 

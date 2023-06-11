@@ -10,8 +10,10 @@ const MyClassTable = ({ singleClass }) => {
     price,
     status,
     feedback,
+    totalEnrolledStudent,
     _id
   } = singleClass;
+  console.log(singleClass);
  
   const [isOpen, setIsOpen] = useState(false);
  
@@ -40,7 +42,7 @@ const MyClassTable = ({ singleClass }) => {
           (status === "deny" && "Deny") ||
           "Pending"}
       </td>
-      <td>20</td>
+        <td>{ totalEnrolledStudent}</td>
       <td><button disabled={!feedback} onClick={()=> setIsOpen(true)} className="bg-green-300 px-1 rounded-full disabled:cursor-not-allowed disabled:bg-gray-600  ">See feedback</button></td>
       <td>
         <Link to={`/dashboard/single-class/${_id}`} className="bg-lime-300 px-2 rounded-xl">Update</Link>

@@ -1,21 +1,27 @@
 import Swal from "sweetalert2";
-import useAdmin from "../../hooks/UseAdmin";
+// import useAdmin from "../../hooks/UseAdmin";
 import useAuth from "../../hooks/UseAuth";
-import useInstructor from "../../hooks/UseInstructor";
-import { useNavigate } from "react-router-dom";
-
-
+// import useInstructor from "../../hooks/UseInstructor";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ClassCard = ({ singleClass }) => {
-  const { availableSeat, className, image, instructorName, price, _id, email } =
-    singleClass;
+  const {
+    availableSeat,
+    className,
+    image,
+    instructorName,
+    price,
+    _id,
+    email,
+    totalEnrolledStudent,
+  } = singleClass;
 
   // console.log(bookmarkedSports);
-  const [isAdmin] = useAdmin();
-  const [isInstructor] = useInstructor();
+  // const [isAdmin] = useAdmin();
+  // const [isInstructor] = useInstructor();
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  const location = useLocation();
 
   const bookmarkSport = () => {
     if (user) {
@@ -28,6 +34,7 @@ const ClassCard = ({ singleClass }) => {
         sportsId: _id,
         studentEmail: user?.email,
         instructorEmail: email,
+        totalEnrolledStudent:parseInt(totalEnrolledStudent),
       };
 
       fetch(`http://localhost:5000/sports`, {
@@ -53,14 +60,14 @@ const ClassCard = ({ singleClass }) => {
       Swal.fire({
         title: "Are you sure?",
         text: "You have to login for bookmark!",
-        icon: "success",
+        icon: "error",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, log in!",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login");
+          navigate("/login", { state: { from: location } });
         }
       });
     }
@@ -69,7 +76,11 @@ const ClassCard = ({ singleClass }) => {
   return (
     <div
       className={`card card-compact w-full border border-gray-300 group
-     ${availableSeat === 0 ? 'bg-red-500':'bg-gradient-to-r from-[#a59bc9] to-[#7564c0]' }  flex
+     ${
+       availableSeat === 0
+         ? "bg-red-500"
+         : "bg-gradient-to-r from-[#a59bc9] to-[#7564c0]"
+     }  flex
     `}
     >
       <figure>
@@ -90,7 +101,7 @@ const ClassCard = ({ singleClass }) => {
         </div>
         <button
           onClick={bookmarkSport}
-          disabled={isAdmin || isInstructor || availableSeat === 0 }
+          disabled={availableSeat === 0}
           className="mt-auto bg-[#4e32c9] px-2 py-2 rounded-sm text-white font-medium text-base disabled:cursor-not-allowed"
         >
           Select
